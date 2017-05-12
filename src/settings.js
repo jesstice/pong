@@ -17,3 +17,9 @@ export const PADDLE = {
 export const BALL = {
 	radius: 8,
 }
+
+export const SCORE = {
+	distance: 50,
+	topDistance: 50,
+	size: 30,
+}
