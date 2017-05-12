@@ -23,21 +23,11 @@ export default class Paddle {
   }
   
 	up() {
-		if (this.y <= Math.min(this.y, 0)) {
-			this.y = 0;
-		} else {
-			this.y = this.y - this.speed;			
-		}
+		this.y = Math.max(0, this.y - this.speed);
 	}
 
 	down() {
-		let boardEnd = this.boardHeight - this.height;
-
-		if (this.y >= Math.max(this.y, boardEnd)) {
-			this.y = boardEnd;
-		} else {
-			this.y = this.y + this.speed;
-		}
+		this.y = Math.min(this.boardHeight - this.height, this.y + this.speed);
 	}
 
   render(svg) {
