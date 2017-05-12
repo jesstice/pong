@@ -1,4 +1,4 @@
-import { SVG_NS, KEYS, PADDLE } from '../settings';
+import { SVG_NS, KEYS, PADDLE, BALL } from '../settings';
 import Board from './Board';
 import Paddle from './Paddle';
 import Ball from './Ball';
@@ -13,9 +13,9 @@ export default class Game {
 	
 		this.board = new Board(this.width, this.height);
 		
-		this.radius = 8;
+		// this.radius = 8;
 		this.ball = new Ball(
-			this.radius,
+			BALL.radius,
 			this.width,
 			this.height
 		);

@@ -13,3 +13,7 @@ export const PADDLE = {
 	height: 56,
 	gap: 10,
 }
+
+export const BALL = {
+	radius: 8,
+}

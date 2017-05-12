@@ -38,14 +38,6 @@ export default class Paddle {
 		} else {
 			this.y = this.y + this.speed;
 		}
-
-		// if ((this.y - this.height) >= Math.max(this.y, (this.boardHeight - this.height))) {
-		// 	this.y = this.boardHeight - this.height;
-		// 	console.log(this.boardHeight - this.height);
-		// } else {
-		// 	this.y = this.y + this.speed;		
-		// 	console.log(this.y);
-		// }
 	}
 
   render(svg) {
