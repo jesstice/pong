@@ -3,13 +3,15 @@ import Board from './Board';
 import Paddle from './Paddle';
 import Ball from './Ball';
 import Score from './Score';
+import FinalScore from './FinalScore';
 
 export default class Game {
 
 	constructor(element, width, height) {
 		this.width = width;
 		this.height = height;
-	
+		this.ping = new Audio('public/sounds/pong-04.wav');
+
 		this.gameElement = document.getElementById(element);		
 
 		this.board = new Board(this.width, this.height);
@@ -42,16 +44,49 @@ export default class Game {
 			KEYS.down
 		);
 
+		this.finalScore = new FinalScore(
+			this.width,
+			this.height,
+			SCORE.size
+		);
+
 		document.addEventListener('keydown', event => {
 			if (event.key === KEYS.spaceBar) {
 				this.pause = !this.pause;
 			}
 		})
 
+		document.addEventListener('keydown', event => {
+			if (event.key === KEYS.enter) {
+				this.gameReset();
+			}
+		})
+
+		// let balls = [];
+		// let ballCount = 2;
+
+	// addBall() {
+	// 		for (let i = 0; i < 2; i++) {
+	// 			this.balls[i] = new Ball(BALL.radius, this.width, this.height);
+	// 		}
+	// 	}
+
+}
+
+	gameReset() {
+		this.pause = false;
+		this.ball.reset();
+		this.player1.score = 0;
+		this.player2.score = 0;
+	}
+
+	declareWinner(svg, player) {
+		this.ping.play();
+		this.finalScore.render(svg, `${player} wins!`);
+		this.pause = true;
 	}
 
 	render() {
-
 		if (this.pause) {
 			return;
 		}
@@ -70,6 +105,18 @@ export default class Game {
 
 		this.player1.render(svg);
 		this.player2.render(svg);
+
+		// for (let ball in this.balls) {
+		// 	this.balls[ball].render(svg, this.player1, this.player2);
+		// }
+
 		this.ball.render(svg, this.player1, this.player2);
+		
+		if (this.player1.score === 5) {		
+			this.declareWinner(svg, 'Player 1');
+		} else if (this.player2.score === 5) {
+			this.declareWinner(svg, 'Player 2');
+
+		}
 	}
 }
