@@ -93,7 +93,10 @@ var PADDLE = exports.PADDLE = {
 };
 
 var BALL = exports.BALL = {
-	radius: 8
+	radius: 8,
+	radius2: 11,
+	color1: '#FFF',
+	colour2: '#ffb6c1'
 };
 
 var SCORE = exports.SCORE = {
@@ -164,9 +167,12 @@ var Game = function () {
 		this.player1Score = new _Score2.default(this.width / 2 - _settings.SCORE.distance, _settings.SCORE.topDistance, _settings.SCORE.size);
 		this.player2Score = new _Score2.default(this.width / 2 + (_settings.SCORE.distance - _settings.SCORE.size / 2), _settings.SCORE.topDistance, _settings.SCORE.size);
 
-		this.ball = new _Ball2.default(_settings.BALL.radius, this.width, this.height);
+		this.ball = new _Ball2.default(_settings.BALL.radius, this.width, this.height, _settings.BALL.color1);
+
+		this.ball2 = new _Ball2.default(_settings.BALL.radius2, this.width, this.height, _settings.BALL.colour2);
 
 		this.player1 = new _Paddle2.default(this.height, _settings.PADDLE.width, _settings.PADDLE.height, _settings.PADDLE.gap, (this.height - _settings.PADDLE.height) / 2, _settings.KEYS.a, _settings.KEYS.z);
+
 		this.player2 = new _Paddle2.default(this.height, _settings.PADDLE.width, _settings.PADDLE.height, this.width - _settings.PADDLE.width - _settings.PADDLE.gap, (this.height - _settings.PADDLE.height) / 2, _settings.KEYS.up, _settings.KEYS.down);
 
 		this.finalScore = new _FinalScore2.default(this.width, this.height, _settings.SCORE.size);
@@ -182,15 +188,6 @@ var Game = function () {
 				_this.gameReset();
 			}
 		});
-
-		// let balls = [];
-		// let ballCount = 2;
-
-		// addBall() {
-		// 		for (let i = 0; i < 2; i++) {
-		// 			this.balls[i] = new Ball(BALL.radius, this.width, this.height);
-		// 		}
-		// 	}
 	}
 
 	_createClass(Game, [{
@@ -207,6 +204,11 @@ var Game = function () {
 			this.ping.play();
 			this.finalScore.render(svg, player + ' wins!');
 			this.pause = true;
+		}
+	}, {
+		key: 'addBall',
+		value: function addBall(svg) {
+			this.ball2.render(svg, this.player1, this.player2);
 		}
 	}, {
 		key: 'render',
@@ -230,15 +232,15 @@ var Game = function () {
 			this.player1.render(svg);
 			this.player2.render(svg);
 
-			// for (let ball in this.balls) {
-			// 	this.balls[ball].render(svg, this.player1, this.player2);
-			// }
-
 			this.ball.render(svg, this.player1, this.player2);
 
-			if (this.player1.score === 5) {
+			if (this.player1.score || this.player2.score % 2) {
+				this.ball2.render(svg, this.player1, this.player2);
+			}
+
+			if (this.player1.score === 10) {
 				this.declareWinner(svg, 'Player 1');
-			} else if (this.player2.score === 5) {
+			} else if (this.player2.score === 10) {
 				this.declareWinner(svg, 'Player 2');
 			}
 		}
@@ -318,13 +320,14 @@ var _settings = __webpack_require__(0);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Ball = function () {
-	function Ball(radius, boardWidth, boardHeight) {
+	function Ball(radius, boardWidth, boardHeight, colour) {
 		_classCallCheck(this, Ball);
 
 		this.radius = radius;
 		this.boardWidth = boardWidth;
 		this.boardHeight = boardHeight;
 		this.direction = 1;
+		this.colour = colour;
 		this.ping = new Audio('public/sounds/pong-03.wav');
 
 		// center ball in board initially
@@ -420,7 +423,7 @@ var Ball = function () {
 			ball.setAttributeNS(null, 'cx', this.x);
 			ball.setAttributeNS(null, 'cy', this.y);
 			ball.setAttributeNS(null, 'r', this.radius);
-			ball.setAttributeNS(null, 'fill', '#FFF');
+			ball.setAttributeNS(null, 'fill', this.colour);
 			svg.appendChild(ball);
 
 			// detect goal
@@ -541,6 +544,7 @@ var Board = function () {
 						rect.setAttributeNS(null, 'fill', '#000');
 
 						var text = document.createElementNS(_settings.SVG_NS, 'text');
+						text.setAttributeNS(null, 'id', 'final-score');
 						text.setAttributeNS(null, 'x', this.width * 0.25);
 						text.setAttributeNS(null, 'y', this.height * 0.50);
 						text.setAttributeNS(null, 'font-size', this.size);
@@ -703,7 +707,7 @@ exports = module.exports = __webpack_require__(11)();
 
 
 // module
-exports.push([module.i, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\n/**\n * FONTS\n */\n\n@font-face {\n  font-family: 'Silkscreen Web';\n  src: url(" + __webpack_require__(1) + ");\n  src: url(" + __webpack_require__(1) + "?#iefix) format('embedded-opentype'),\n    url(" + __webpack_require__(14) + ") format('woff'),\n    url(" + __webpack_require__(13) + ") format('truetype'),\n    url(" + __webpack_require__(12) + "#silkscreennormal) format('svg');\n  font-weight: normal;\n  font-style: normal;\n}\n\n/**\n * GAME\n */\n\nhtml {\n  font-size: 16px;\n}\n\nbody {\n  align-items: center;\n  display: flex;\n  font-family: 'Silkscreen Web', monotype;\n  height: 100vh;\n  justify-content: center;\n  width: 100%;\n}\n\nh1 {\n  font-size: 2.5rem;\n  margin-bottom: 1rem; \n  text-align: center;\n}\n", ""]);
+exports.push([module.i, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\n/**\n * FONTS\n */\n\n@font-face {\n  font-family: 'Silkscreen Web';\n  src: url(" + __webpack_require__(1) + ");\n  src: url(" + __webpack_require__(1) + "?#iefix) format('embedded-opentype'),\n    url(" + __webpack_require__(14) + ") format('woff'),\n    url(" + __webpack_require__(13) + ") format('truetype'),\n    url(" + __webpack_require__(12) + "#silkscreennormal) format('svg');\n  font-weight: normal;\n  font-style: normal;\n}\n\n/**\n * GAME\n */\n\nhtml {\n  font-size: 16px;\n}\n\nbody {\n  align-items: center;\n  display: flex;\n  font-family: 'Silkscreen Web', monotype;\n  height: 100vh;\n  justify-content: center;\n  width: 100%;\n}\n\nh1 {\n  font-size: 2.5rem;\n  margin-bottom: 1rem; \n  text-align: center;\n}\n\n@keyframes flashingText {\n  0% {fill: white;}\n  100% {fill: black;}\n}\n\n#final-score {\n  animation-name: flashingText;\n  animation-duration: 0.3s;\n  animation-timing-function: linear;\n  animation-iteration-count: infinite;\n  animation-direction: alternate;\n  animation-play-state: running;\n}", ""]);
 
 // exports
 
