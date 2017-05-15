@@ -1,5 +1,5 @@
 # Project 3: Pong Game
-![Pong Screenshot](/public/pong-game.png?raw=true)
+![Pong Screenshot](/public/pong-game.png?raw=true "Pong Game")
 
 ## Description
 Using SVGs, JavaScript, HTML & CSS, this basic pong game was adapted from pre-existing code. 

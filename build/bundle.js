@@ -333,8 +333,6 @@ var Ball = function () {
 		// center ball in board initially
 		this.reset();
 	}
-	// this.ballLeftEdge = this.x - this.radius;
-	// this.ballRightEdge = this.x + this.radius;
 
 	_createClass(Ball, [{
 		key: 'reset',
