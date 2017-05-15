@@ -84,3 +84,17 @@ h1 {
   margin-bottom: 1rem; 
   text-align: center;
 }
+
+@keyframes flashingText {
+  0% {fill: white;}
+  100% {fill: black;}
+}
+
+#final-score {
+  animation-name: flashingText;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-play-state: running;
+}
