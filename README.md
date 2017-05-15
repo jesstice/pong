@@ -1,22 +1,19 @@
-# Pong Game
+# Project 3: Pong Game
 
-A basic pong game using SVGs.
+## Description
+Using SVGs, JavaScript, HTML & CSS, this basic pong game was adapted from pre-existing code. 
 
-## Setup
+## Technologies Used
+- Babel
+- ESLint
+- GIT
+- Google Chrome Developer Tools
+- Webpack
 
-**Install dependencies:**
+## How to Play
+This is a two-player game. First player to 10 points wins.
 
-`> npm i`
-
-**Run locally with Webpack Dev Server:**
-
-`> npm start`
-
-**Build for production:**
-
-`> npm run build`
-
-## Keys
+Player keys are noted below.
 
 **Player 1:**
 * a: up
