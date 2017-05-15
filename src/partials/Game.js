@@ -69,8 +69,7 @@ export default class Game {
 				this.gameReset();
 			}
 		})
-
-}
+	}
 
 	gameReset() {
 		this.pause = false;
@@ -120,6 +119,5 @@ export default class Game {
 		} else if (this.player2.score === 10) {
 			this.declareWinner(svg, 'Player 2');
 		}
-
 	}
 }

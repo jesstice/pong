@@ -12,8 +12,6 @@ export default class Ball {
 		// center ball in board initially
 		this.reset();
 	}
-		// this.ballLeftEdge = this.x - this.radius;
-		// this.ballRightEdge = this.x + this.radius;
 		
 	reset() {
 		this.x = this.boardWidth/2;
