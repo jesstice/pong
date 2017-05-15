@@ -6,7 +6,6 @@ import Score from './Score';
 import FinalScore from './FinalScore';
 
 export default class Game {
-
 	constructor(element, width, height) {
 		this.width = width;
 		this.height = height;
@@ -22,7 +21,15 @@ export default class Game {
 		this.ball = new Ball(
 			BALL.radius,
 			this.width,
-			this.height
+			this.height,
+			BALL.color1
+		);
+
+		this.ball2 = new Ball(
+			BALL.radius2,
+			this.width,
+			this.height,
+			BALL.colour2
 		);
 
 		this.player1 = new Paddle(
@@ -34,6 +41,7 @@ export default class Game {
 			KEYS.a,
 			KEYS.z
 		);
+
 		this.player2 = new Paddle(
 			this.height,
 			PADDLE.width,
@@ -62,15 +70,6 @@ export default class Game {
 			}
 		})
 
-		// let balls = [];
-		// let ballCount = 2;
-
-	// addBall() {
-	// 		for (let i = 0; i < 2; i++) {
-	// 			this.balls[i] = new Ball(BALL.radius, this.width, this.height);
-	// 		}
-	// 	}
-
 }
 
 	gameReset() {
@@ -84,6 +83,10 @@ export default class Game {
 		this.ping.play();
 		this.finalScore.render(svg, `${player} wins!`);
 		this.pause = true;
+	}
+
+	addBall (svg) {
+		this.ball2.render(svg, this.player1, this.player2);		
 	}
 
 	render() {
@@ -106,17 +109,17 @@ export default class Game {
 		this.player1.render(svg);
 		this.player2.render(svg);
 
-		// for (let ball in this.balls) {
-		// 	this.balls[ball].render(svg, this.player1, this.player2);
-		// }
-
 		this.ball.render(svg, this.player1, this.player2);
-		
-		if (this.player1.score === 5) {		
-			this.declareWinner(svg, 'Player 1');
-		} else if (this.player2.score === 5) {
-			this.declareWinner(svg, 'Player 2');
 
+		if (this.player1.score || this.player2.score % 2) {
+			this.ball2.render(svg, this.player1, this.player2);
 		}
+
+		if (this.player1.score === 10) {
+			this.declareWinner(svg, 'Player 1');
+		} else if (this.player2.score === 10) {
+			this.declareWinner(svg, 'Player 2');
+		}
+
 	}
 }

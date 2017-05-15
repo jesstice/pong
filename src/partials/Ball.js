@@ -1,11 +1,12 @@
 import { SVG_NS } from '../settings';
 
 export default class Ball {
-	constructor(radius, boardWidth, boardHeight) {
+	constructor(radius, boardWidth, boardHeight, colour) {
 		this.radius = radius;
 		this.boardWidth = boardWidth;
 		this.boardHeight = boardHeight;
 		this.direction = 1;
+		this.colour = colour;
 		this.ping = new Audio('public/sounds/pong-03.wav');
 		
 		// center ball in board initially
@@ -93,7 +94,7 @@ export default class Ball {
 		ball.setAttributeNS(null, 'cx', this.x);
 		ball.setAttributeNS(null, 'cy', this.y);
 		ball.setAttributeNS(null, 'r', this.radius);
-		ball.setAttributeNS(null, 'fill', '#FFF');
+		ball.setAttributeNS(null, 'fill', this.colour);
 		svg.appendChild(ball);
 
 		// detect goal

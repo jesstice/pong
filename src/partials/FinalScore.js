@@ -16,7 +16,7 @@ export default class Board {
 		rect.setAttributeNS(null, 'fill', '#000');
 
 		let text = document.createElementNS(SVG_NS, 'text');
-		text.setAttributeNS(null, 'x', this.width*0.25);
+		text.setAttributeNS(null, 'x', this.width*0.28);
 		text.setAttributeNS(null, 'y', this.height*0.50);
 		text.setAttributeNS(null, 'font-size', this.size);
 		text.setAttributeNS(null, 'font-family', 'Silkscreen Web, monotype');
@@ -24,7 +24,7 @@ export default class Board {
 		text.textContent = winner;
 
 		let resettext = document.createElementNS(SVG_NS, 'text');
-		resettext.setAttributeNS(null, 'x', this.width*0.27);
+		resettext.setAttributeNS(null, 'x', this.width*0.30);
 		resettext.setAttributeNS(null, 'y', this.height*0.65);
 		resettext.setAttributeNS(null, 'font-size', this.size/2);
 		resettext.setAttributeNS(null, 'font-family', 'Silkscreen Web, monotype');

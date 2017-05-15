@@ -17,6 +17,9 @@ export const PADDLE = {
 
 export const BALL = {
 	radius: 8,
+	radius2: 10,
+	color1: '#FFF',
+	colour2: '#ffb6c1',
 }
 
 export const SCORE = {
