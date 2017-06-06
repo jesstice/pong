@@ -46,6 +46,6 @@ export default class Paddle {
 		paddle.setAttributeNS(null, 'y', this.y);
 		paddle.setAttributeNS(null, 'fill', '#feffba');
 
-		svg.appendChild(paddle);				
+		svg.appendChild(paddle);
   }
 }

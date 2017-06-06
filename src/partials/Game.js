@@ -109,7 +109,7 @@ export default class Game {
 		svg.setAttributeNS(null, 'width', this.width);
 		svg.setAttributeNS(null, 'height', this.height);
 		svg.setAttributeNS(null, 'viewBox', `0 0 ${this.width} ${this.height}`);
-		this.gameElement.appendChild(svg);		
+		this.gameElement.appendChild(svg);
 	
 		this.board.render(svg);
 		this.player1Score.render(svg, this.player1.score);
