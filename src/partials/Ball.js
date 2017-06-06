@@ -111,16 +111,5 @@ export default class Ball {
 
 		this.detectGoal(player1, player2);
 
-		// // detect goal
-		// const rightGoal = this.x + this.radius >= this.boardWidth;
-		// const leftGoal = this.x - this.radius <= 0;
-
-		// if (rightGoal) {
-		// 	this.goal(player1);
-		// 	this.direction = 1;
-		// } else if (leftGoal) {
-		// 	this.goal(player2);
-		// 	this.direction = -1;
-		// }
 	}
 }
