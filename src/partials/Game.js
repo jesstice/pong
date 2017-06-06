@@ -84,8 +84,18 @@ export default class Game {
 		this.pause = true;
 	}
 
-	addBall (svg) {
-		this.ball2.render(svg, this.player1, this.player2);		
+	displayWinnerMessage(svg) {
+		if (this.player1.score === 10) {
+			this.declareWinner(svg, 'Player 1');
+		} else if (this.player2.score === 10) {
+			this.declareWinner(svg, 'Player 2');
+		}
+	}
+
+	addBall(svg) {
+		if (this.player1.score > 5 || this.player2.score > 5) {
+		this.ball2.render(svg, this.player1, this.player2);
+		}
 	}
 
 	render() {
@@ -110,14 +120,8 @@ export default class Game {
 
 		this.ball.render(svg, this.player1, this.player2);
 
-		if (this.player1.score > 5 || this.player2.score > 5) {
-			this.ball2.render(svg, this.player1, this.player2);
-		}
+		this.addBall(svg);
 
-		if (this.player1.score === 10) {
-			this.declareWinner(svg, 'Player 1');
-		} else if (this.player2.score === 10) {
-			this.declareWinner(svg, 'Player 2');
-		}
+		this.displayWinnerMessage(svg);
 	}
 }
